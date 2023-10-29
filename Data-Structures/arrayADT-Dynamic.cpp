@@ -20,7 +20,8 @@ public:
     void insert(int element) {
         if (size < capacity) {
             arr[size++] = element;
-        } else {
+        } 
+        else {
             // If the array is full, double the capacity and copy elements to a new array
             capacity *= 2;
             int* newArr = new int[capacity];
