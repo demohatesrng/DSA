@@ -3,76 +3,138 @@ using namespace std;
 class Node{
     public:
         int data;
-        Node* prev;
         Node* next;
-
-    Node(int value){
-        this -> data = data;
-        this -> next = nullptr;
-        this -> prev = nullptr;
+        Node* prev;
+    
+    Node(int data){
+        this->data = data;
+        this->next = nullptr;
+        this->prev = nullptr;
     }
 };
-class DoublyLinkedList{
+class DLL{
     private:
         Node* head;
         Node* tail;
     public:
-        DoublyLinkedList(){
-            this -> head = nullptr;
-            this -> tail = nullptr;
+        DLL(){
+            this->head = nullptr;
+            this->tail = nullptr;
         }
-    void insertAtBeginning(int x){
-        Node* newNode = new Node(x);
-        newNode -> next = head;
-        newNode -> prev  = nullptr;
-
-        if(head!= nullptr){
-            head->prev = newNode;
-        }
-        else{
-            tail = newNode;
-        }
-        head = newNode;
-    }
-    Node* search(int x){
-        Node* cursor = head;
-        while(cursor!=nullptr){
-            if(cursor->data == x){
-                return cursor;
-            }
-            cursor = cursor-> next;
-        }
-        return nullptr;
-    }
-    void displayFroward(){
-        Node* cursor = head;
+    void displayForward(){
+        Node*cursor = head;
         while(cursor!= nullptr){
-            cout<< cursor->data<<"->";
+            cout<<cursor->data<<" ";
             cursor = cursor->next;
         }
         cout<<"nullptr"<<endl;
     }
-    void displayBackward(){
-        Node* cursor = tail;
-        while(cursor!= nullptr){
-            cout<< cursor->data<<"->";
+    void displayBack(){
+        Node*cursor = tail;
+        while(cursor!=nullptr){
+            cout<<cursor->data<<" ";
             cursor = cursor->prev;
         }
         cout<<"nullptr"<<endl;
     }
-    void concatenate(DoublyLinkedList& otherList){
-        if(head==nullptr){
-            head = otherList.head;
+    Node* search(int x){
+        Node* cursor = head;
+        while(cursor!= nullptr){
+            if(cursor->data == x){
+                return cursor;
+            }
+            cursor = cursor->next;
         }
-        else if(otherList.head != nullptr){
-            tail->next = otherList.head;
-            otherList.head->prev = tail;
-            tail = otherList.tail;
+        return nullptr;
+    }
+    void insertAtHead(int x){
+        Node* newNode = new Node(x);
+        newNode->next = head;
+        newNode->prev = nullptr;
+
+        if(head!=nullptr){
+            head->prev = newNode;
         }
-        otherList.head = nullptr;
-        otherList.tail = nullptr;
+        head = newNode;
+    }
+    void insertAtPosition(int x, int position){
+        if(position<=0){
+            insertAtHead(x);
+            return;
+        }
+        Node* newNode = new Node(x);
+
+        Node* cursor = head;
+        int cursorposition = 0;
+
+        while(cursor!= nullptr && cursorposition < position-1){
+            cursor = cursor->next;
+            cursorposition++;
+        }
+        if(cursor == nullptr){
+            cout<<"Invalid position"<<endl;
+            return;
+        }
+        newNode->next = cursor->next;
+        newNode->prev = cursor;
+        cursor->next = newNode;
+
+        if(newNode->next != nullptr){
+            newNode->next->prev = newNode;
+        }
+        else{
+            tail = newNode;
+        }
+    }
+    void insertAtEnd(int x) {
+    Node* newNode = new Node(x);
+    newNode->prev = tail;
+    newNode->next = nullptr;
+
+    if (tail != nullptr) {
+        tail->next = newNode;
+    }
+    tail = newNode;
+}
+    void removeFromHead(){
+        if(head == nullptr){
+            cout<<"list is empty"<<endl;
+            return;
+        }
+        Node* temp = head;
+        head = head->next;
+
+        if(head!= nullptr){
+            head->prev = nullptr;
+        }
+        delete temp;
+    }
+    void removeFromTail() {
+    if (tail == nullptr) {
+        cout << "No more elements" << endl;
+        return;
+    }
+    Node* temp = tail;
+    tail = tail->prev;
+
+    if (tail != nullptr) {
+        tail->next = nullptr;
+    }
+    delete temp;
     }
 };
 int main(){
+    DLL doublyLinkedList;
+
+    doublyLinkedList.insertAtHead(1);
+    doublyLinkedList.insertAtEnd(3);
+    doublyLinkedList.insertAtPosition(2, 2);
+
+    doublyLinkedList.displayForward(); // Should print "1 2 3 nullptr"
+    doublyLinkedList.displayBack();    // Should print "3 2 1 nullptr"
+
+    doublyLinkedList.displayForward(); // Should print "1 3 nullptr"
+    doublyLinkedList.displayBack();    // Should print "3 1 nullptr"
+
     return 0;
 }

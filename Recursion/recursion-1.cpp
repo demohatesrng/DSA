@@ -3,7 +3,9 @@ using namespace std;
 int factorial(int n){
     if(n<=1)
         return 1;
+    else{
         return n * factorial(n-1);
+    }
 }
 int power(int n){
     if (n==0)
@@ -12,9 +14,16 @@ int power(int n){
 }
 int counting(int n){
     if(n==0)
-        return 1;
+        return 0;
     cout<<n<<" ";
     return counting(n-1);
+}
+// binary representation
+void fun2(int n){
+if(n == 0)
+	return;
+fun2(n/2);
+cout << n%2 << endl;
 }
 int main(){
     int n = 5;

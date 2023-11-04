@@ -27,7 +27,8 @@ bool palindrome(string& str, int i, int j) {
 
     if (str[i] != str[j]) {
         return false;
-    } else {
+    } 
+    else {
         return palindrome(str, i + 1, j - 1);
     }
 }

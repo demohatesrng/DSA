@@ -2,37 +2,38 @@
 using namespace std;
 class Array{
     private:
-        int *arr;
-        int capacity;
         int size;
+        int capacity;
+        int* arr;
+    
     public:
         Array(int capacity){
             this->size = 0;
-            this -> capacity = capacity;
+            this->capacity = capacity;
             arr = new int[capacity];
         }
-    void traverse(){
-        for (int i = 0; i < size; i++){
-            cout<<arr[i]<<" ";
+        void traverse(){
+            for (int i = 0; i < size; i++){
+                cout<<arr[i]<<" ";
+            }
+            cout<<endl;
         }
-        cout<<endl;
+    void reverse(){
+        int start = 0;
+        int end = size -1;
+            while(start<end){
+                swap(arr[start], arr[end]);
+                start++;
+                end--;
+            }
     }
     int search(int element){
-        for(int i = 0; i<size; i++){
+        for (int i = 0; i < size; i++){
             if(arr[i]==element){
                 return i;
             }
         }
         return false;
-    }
-    void reverse(){
-        int start = 0;
-        int end = size - 1;
-        while(start<end){
-            swap(arr[start], arr[end]);
-            start++;
-            end--;
-        }
     }
     void insert(int element){
         if(size<capacity){
@@ -43,7 +44,7 @@ class Array{
         }
     }
     void deleteat(int index){
-        if(index >=0 && index <= size){
+        if(index >= 0 && index <= size){
             for (int i = index; i < size - 1; i++){
                 arr[i]=arr[i+1];
             }
@@ -69,4 +70,5 @@ int main(){
     arr1.traverse();
 
     return 0;
+return 0;
 }

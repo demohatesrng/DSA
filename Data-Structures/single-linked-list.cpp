@@ -5,8 +5,8 @@ public:
     int data;
     Node* next;
     
-    Node(int data){
-        this -> data = data;
+    Node(int value){
+        this -> data = value;
         this-> next = NULL;
     }
 };
@@ -118,6 +118,5 @@ int main() {
     } else {
         cout << "Element 6 not found." << endl;
     }
-
     return 0;
 }
