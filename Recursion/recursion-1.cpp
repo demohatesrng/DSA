@@ -30,5 +30,6 @@ int main(){
     cout<<factorial(n)<<endl;
     cout<<power(6)<<endl;
     cout<<counting(6)<<endl;
+    fun2(6);
 return 0;
 }
