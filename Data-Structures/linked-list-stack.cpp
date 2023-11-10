@@ -16,8 +16,8 @@ class Stack {
         Stack(){
             this->top = nullptr;
         }
-        void push(int value) {
-            Node* newNode = new Node(value);
+        void push(int data) {
+            Node* newNode = new Node(data);
             newNode->next = top;
             top = newNode;
         }
@@ -43,6 +43,7 @@ class Stack {
         bool isEmpty() {
             return top == nullptr;
         }
+        
         void display() {
         Node* cursor = top;
         cout << "Stack: ";
@@ -51,6 +52,18 @@ class Stack {
             cursor = cursor->next;
         }
         cout << endl;
+    }
+    int search(int x) {
+        int position = 1;
+        Node* cursor = top;
+        while (cursor != nullptr) {
+            if (cursor->data == x) {
+                return position;
+            }
+            cursor = cursor->next;
+            position++;
+        }
+        return -1; // Element not found
     }
 };
 int main() {

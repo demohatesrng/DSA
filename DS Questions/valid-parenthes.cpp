@@ -21,12 +21,12 @@ bool isValid(string s) {
                 (c == ']' && topChar == '[') ||
                 (c == '}' && topChar == '{')) {
                 charStack.pop();
-            } else {
+            } 
+            else {
                 return false;
             }
         }
     }
-
     return charStack.empty();
 }
 int main() {

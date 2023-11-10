@@ -56,7 +56,6 @@ public:
         return front->data;
     }
 };
-
 int main() {
     Queue queue;
 

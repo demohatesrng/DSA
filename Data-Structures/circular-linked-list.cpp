@@ -14,28 +14,29 @@ class CircularLinkedList {
 private:
     Node* head;
 public:
-    CircularLinkedList() : head(nullptr) {}
+    CircularLinkedList(){
+        this->head = nullptr;
+    }
 
     void display() {
         if (head == nullptr) {
             cout << "List is empty." << endl;
             return;
         }
-        Node* current = head;
-        
-            cout << current->data << " -> ";
-            current = current->next;
-        }
+        Node* cursor = head;
+            cout << cursor->data << " -> ";
+            cursor = cursor->next;
+    }
 
     bool search(int value) {
         if (head == nullptr) {
             return false;
         }
-        Node* current = head;
-            if (current->data == value) {
+        Node* cursor = head;
+            if (cursor->data == value) {
                 return true;
             }
-            current = current->next;
+            cursor = cursor->next;
         return false;
     }
 
@@ -120,18 +121,10 @@ int main() {
 
     cll.insertFront(1);
     cll.insertFront(2);
-    cll.insertBack(3);
-    cll.display();
-
-    if (cll.search(2)) {
-        cout << "2 is in the list." << endl;
-    } else {
-        cout << "2 is not in the list." << endl;
-    }
-
-    cll.removeFront();
-    cll.display();
-    cll.removeBack();
+    cll.insertFront(3);
+    cll.insertFront(4);
+    cll.insertFront(5);
+    cll.insertBack(6);
     cll.display();
 
     return 0;
