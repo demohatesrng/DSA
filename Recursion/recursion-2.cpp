@@ -30,12 +30,12 @@ int staircase(int n){
         return 1;
     int ans = staircase(n - 1) + staircase(n - 2);
     return ans;
- return ans;
 }
 int main(){
     int desc = 20;
     int src = 2;
     // home(src,desc);
     cout<<"fibonacci of 5 is " <<fib(10)<<endl;
+    cout<<staircase(5)<<endl;
 return 0;
 }
