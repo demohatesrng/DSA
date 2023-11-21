@@ -26,7 +26,6 @@ int countpime(int n){
         }
     }
 }
-int main(){
-    
-return 0;
+int main(){ 
+    return 0;
 }
