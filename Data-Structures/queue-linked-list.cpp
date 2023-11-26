@@ -5,7 +5,10 @@ public:
     int data;
     Node* next;
 
-    Node(int value) : data(value), next(nullptr) {}
+    Node(int value){
+        this->data = data;
+        this->next = nullptr;
+    }
 };
 
 class Queue {

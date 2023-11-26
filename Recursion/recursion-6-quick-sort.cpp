@@ -15,9 +15,8 @@ int partition(int arr[], int s, int e) {
     return s + cnt;
 }
 void quicksort(int arr[], int s, int e) {
-    if (s >= e) {
+    if (s >= e) 
         return;
-    }
     int p = partition(arr, s, e);
     quicksort(arr, s, p - 1);
     quicksort(arr, p + 1, e);
@@ -26,7 +25,6 @@ int main() {
     int arr[6] = {2, 4, 5, 1, 3};
     int n = 6;
     quicksort(arr, 0, n - 1);
-
     cout << "Sorted array: ";
     for (int i = 0; i < n; i++) {
         cout << arr[i] << " ";
