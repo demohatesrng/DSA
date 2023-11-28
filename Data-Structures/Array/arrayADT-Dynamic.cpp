@@ -7,9 +7,9 @@ private:
     int size;
 
 public:
-    DynamicArray(int initialCapacity) {
-        capacity = initialCapacity;
-        size = 0;
+    DynamicArray(int Capacity) {
+        this->capacity = Capacity;
+        this->size = 0;
         arr = new int[capacity];
     }
 

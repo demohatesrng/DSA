@@ -69,6 +69,5 @@ int main(){
     cout << "Array after deletion: ";
     arr1.traverse();
 
-    return 0;
 return 0;
 }
