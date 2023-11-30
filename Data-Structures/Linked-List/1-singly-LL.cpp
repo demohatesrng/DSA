@@ -18,6 +18,31 @@ public:
         this->head = nullptr;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     void insertAtBeginning(int x) {
         Node* newNode = new Node(x);
         newNode->next = head;
