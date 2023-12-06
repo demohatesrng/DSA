@@ -115,8 +115,6 @@ void buildFromLevelOrder(node* &root) {
  }
 int main() {
     node* root = nullptr;
-    
-    // Building a tree using buildFromLevelOrder
     buildFromLevelOrder(root);
 
     cout << "Level Order Traversal: ";

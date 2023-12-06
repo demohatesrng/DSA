@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 class heap{
 public:
     int arr[100];
@@ -71,16 +70,16 @@ public:
             heapify(1);
         }
 
-        size = originalSize; // Restore the original size
+        size = originalSize;
     }
 
     int search(int val) {
         for (int i = 1; i <= size; i++) {
             if (arr[i] == val) {
-                return i; // Return the index if found
+                return i;
             }
         }
-        return -1; // Return -1 if not found
+        return -1;
     }
 
     void print(){
@@ -118,6 +117,4 @@ int main(){
     cout << "Heap sort: ";
     h.heapSort();
     h.print();
-
-    return 0;
 }

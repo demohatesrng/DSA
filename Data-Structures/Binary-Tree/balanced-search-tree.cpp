@@ -197,5 +197,4 @@ int main() {
     else
         cout << searchData << " not found in the AVL tree!" << endl;
 
-    return 0;
 }
