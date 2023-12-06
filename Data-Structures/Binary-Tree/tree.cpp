@@ -113,5 +113,27 @@ void buildFromLevelOrder(node* &root) {
         }
     }
  }
-int main(){
+int main() {
+    node* root = nullptr;
+    
+    // Building a tree using buildFromLevelOrder
+    buildFromLevelOrder(root);
+
+    cout << "Level Order Traversal: ";
+    levelOrderTraversal(root);
+    cout << endl;
+
+    cout << "Inorder Traversal: ";
+    inorder(root);
+    cout << endl;
+
+    cout << "Preorder Traversal: ";
+    preorder(root);
+    cout << endl;
+
+    cout << "Postorder Traversal: ";
+    postorder(root);
+    cout << endl;
+
+    return 0;
 }
