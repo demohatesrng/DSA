@@ -13,7 +13,6 @@ public:
         this->right = NULL;
     }
 };
-
 node* insertbst(node* root, int data) {
     if (root == NULL) {
         root = new node(data);
@@ -21,12 +20,12 @@ node* insertbst(node* root, int data) {
     }
     if (data > root->data) {
         root->right = insertbst(root->right, data);
-    } else {
+    } 
+    else {
         root->left = insertbst(root->left, data);
     }
     return root;
 }
-
 void takeinput(node* &root) {
     int data;
     cin >> data;
@@ -36,7 +35,6 @@ void takeinput(node* &root) {
         cin >> data; // Update data for next iteration
     }
 }
-
 void levelOrderTraversal(node* root) {
     queue<node*> q;
     q.push(root);
@@ -50,7 +48,8 @@ void levelOrderTraversal(node* root) {
             if (!q.empty()) {
                 q.push(NULL);
             }
-        } else {
+        } 
+        else {
             cout << temp->data << " ";
             if (temp->left) {
                 q.push(temp->left);
@@ -61,7 +60,6 @@ void levelOrderTraversal(node* root) {
         }
     }
 }
-
 node* searchbst(node* root, int x) {
     while (root != NULL) {
         if (root->data == x) {
@@ -69,13 +67,13 @@ node* searchbst(node* root, int x) {
         }
         if (root->data > x) {
             root = root->left; // Move to the left subtree
-        } else {
+        } 
+        else {
             root = root->right; // Move to the right subtree
         }
     }
     return nullptr; // Node with value x not found
 }
-
 void inorder(node* root) {
     if (root == NULL) {
         return;
@@ -84,7 +82,6 @@ void inorder(node* root) {
     cout << root->data << " ";
     inorder(root->right);
 }
-
 void preorder(node* root) {
     if (root == NULL) {
         return;
@@ -93,7 +90,6 @@ void preorder(node* root) {
     preorder(root->left);
     preorder(root->right);
 }
-
 void postorder(node* root) {
     if (root == NULL) {
         return;
@@ -102,7 +98,6 @@ void postorder(node* root) {
     postorder(root->right);
     cout << root->data << " ";
 }
-
 node* minval(node* root){
     node* temp = root;
     while(temp->left != NULL){
@@ -110,7 +105,6 @@ node* minval(node* root){
     }
     return temp;
 }
-
 node* maxval(node* root){
     node* temp = root;
     while(temp->right != NULL){
@@ -118,21 +112,23 @@ node* maxval(node* root){
     }
     return temp;
 }
-
 node* deletefrombst(node* root, int val) {
     if (root == NULL) {
         return root;
     }
     if (val < root->data) {
         root->left = deletefrombst(root->left, val);
-    } else if (val > root->data) {
+    } 
+    else if (val > root->data) {
         root->right = deletefrombst(root->right, val);
-    } else {
+    } 
+    else {
         if (root->left == NULL) {
             node* temp = root->right;
             delete root;
             return temp;
-        } else if (root->right == NULL) {
+        } 
+        else if (root->right == NULL) {
             node* temp = root->left;
             delete root;
             return temp;
@@ -143,7 +139,6 @@ node* deletefrombst(node* root, int val) {
     }
     return root;
 }
-
 int main() {
     node* root = nullptr;
     cout << "Enter data for the binary search tree (-1 to stop):" << endl;
@@ -161,7 +156,8 @@ int main() {
     node* searchResult = searchbst(root, searchValue);
     if (searchResult != nullptr) {
         cout << "Value " << searchValue << " found in the BST!" << endl;
-    } else {
+    } 
+    else {
         cout << "Value " << searchValue << " not found in the BST." << endl;
     }
 
@@ -175,6 +171,4 @@ int main() {
 
     cout << "\nInorder Traversal after deletion:" << endl;
     inorder(root);
-
-    return 0;
 }
