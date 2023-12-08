@@ -20,7 +20,7 @@ public:
                 index = parent;
             } 
             else {
-                break;
+                return;
             }
         }
     }
