@@ -92,11 +92,19 @@ Node* insert(Node* node, int data) {
     return node;
 }
 
-Node* minValueNode(Node* node) {
-    Node* current = node;
-    while (current->left != nullptr)
-        current = current->left;
-    return current;
+Node* minval(Node* root){
+    Node* temp = root;
+    while(temp->left != NULL){
+        temp = temp->left;
+    }
+    return temp;
+}
+Node* maxval(Node* root){
+    Node* temp = root;
+    while(temp->right != NULL){
+        temp = temp->right;
+    }
+    return temp;
 }
 
 Node* deleteNode(Node* root, int data) {
@@ -117,7 +125,7 @@ Node* deleteNode(Node* root, int data) {
             }
             delete temp;
         } else {
-            Node* temp = minValueNode(root->right);
+            Node* temp = minval(root->right);
             root->data = temp->data;
             root->right = deleteNode(root->right, temp->data);
         }
@@ -153,21 +161,44 @@ Node* deleteNode(Node* root, int data) {
 }
 
 void inorder(Node* root) {
-    if (root != nullptr) {
-        inorder(root->left);
-        cout << root->data << " ";
-        inorder(root->right);
+    if (root == NULL) {
+        return;
     }
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
 }
 
-Node* search(Node* root, int data) {
-    if (root == nullptr || root->data == data)
-        return root;
+void preorder(Node* root) {
+    if (root == NULL) {
+        return;
+    }
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
 
-    if (root->data < data)
-        return search(root->right, data);
-
-    return search(root->left, data);
+void postorder(Node* root) {
+    if (root == NULL) {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << " ";
+}
+Node* searchbst(Node* root, int x) {
+    while (root != NULL) {
+        if (root->data == x) {
+            return root; // Node with value x found
+        }
+        if (root->data > x) {
+            root = root->left; // Move to the left subtree
+        } 
+        else {
+            root = root->right; // Move to the right subtree
+        }
+    }
+    return nullptr; // Node with value x not found
 }
 
 int main() {
@@ -191,7 +222,7 @@ int main() {
     cout << endl;
 
     int searchData = 30;
-    Node* result = search(root, searchData);
+    Node* result = searchbst(root, searchData);
     if (result != nullptr)
         cout << "Found " << searchData << " in the AVL tree!" << endl;
     else
