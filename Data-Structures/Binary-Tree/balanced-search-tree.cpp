@@ -14,21 +14,23 @@ public:
         this->height = 1;
     }
 };
-
 int max(int a, int b) {
-    return (a > b) ? a : b;
+    if(a>b)
+        return a;
+    else{
+        return b;
+    }
 }
-
-int height(Node* node) {
-    if (node == nullptr) return 0;
-    return node->height;
+int height(Node* root) {
+    if (root == nullptr) 
+        return 0;
+    return root->height;
 }
-
-int getBalance(Node* node) {
-    if (node == nullptr) return 0;
-    return height(node->left) - height(node->right);
+int getBalance(Node* root) {
+    if (root == nullptr) 
+        return 0;
+    return height(root->left) - height(root->right);
 }
-
 Node* rightRotate(Node* y) {
     Node* x = y->left;
     Node* T2 = x->right;
@@ -41,7 +43,6 @@ Node* rightRotate(Node* y) {
 
     return x;
 }
-
 Node* leftRotate(Node* x) {
     Node* y = x->right;
     Node* T2 = y->left;
@@ -54,59 +55,44 @@ Node* leftRotate(Node* x) {
 
     return y;
 }
+Node* insert(Node* root, int data) {
+    if (root == nullptr) return new Node(data);
 
-Node* insert(Node* node, int data) {
-    if (node == nullptr) return new Node(data);
-
-    if (data < node->data)
-        node->left = insert(node->left, data);
-    else if (data > node->data)
-        node->right = insert(node->right, data);
+    if (data < root->data)
+        root->left = insert(root->left, data);
+    else if (data > root->data)
+        root->right = insert(root->right, data);
     else
-        return node; // Duplicate keys not allowed
+        return root; // Duplicate keys not allowed
 
-    node->height = 1 + max(height(node->left), height(node->right));
+    root->height = 1 + max(height(root->left), height(root->right));
 
-    int balance = getBalance(node);
+    int balance = getBalance(root);
 
-    // Left Left Case
-    if (balance > 1 && data < node->left->data)
-        return rightRotate(node);
+    if (balance > 1 && data < root->left->data)
+        return rightRotate(root);
 
-    // Right Right Case
-    if (balance < -1 && data > node->right->data)
-        return leftRotate(node);
+    if (balance < -1 && data > root->right->data)
+        return leftRotate(root);
 
-    // Left Right Case
-    if (balance > 1 && data > node->left->data) {
-        node->left = leftRotate(node->left);
-        return rightRotate(node);
+    if (balance > 1 && data > root->left->data) {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
     }
 
-    // Right Left Case
-    if (balance < -1 && data < node->right->data) {
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
+    if (balance < -1 && data < root->right->data) {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
     }
 
-    return node;
+    return root;
 }
-
-Node* minval(Node* root){
+Node* minValueNode(Node* root) {
     Node* temp = root;
-    while(temp->left != NULL){
+    while (temp->left != nullptr)
         temp = temp->left;
-    }
     return temp;
 }
-Node* maxval(Node* root){
-    Node* temp = root;
-    while(temp->right != NULL){
-        temp = temp->right;
-    }
-    return temp;
-}
-
 Node* deleteNode(Node* root, int data) {
     if (root == nullptr) return root;
 
@@ -120,12 +106,13 @@ Node* deleteNode(Node* root, int data) {
             if (temp == nullptr) {
                 temp = root;
                 root = nullptr;
-            } else {
+            } 
+            else {
                 *root = *temp;
             }
             delete temp;
         } else {
-            Node* temp = minval(root->right);
+            Node* temp = minValueNode(root->right);
             root->data = temp->data;
             root->right = deleteNode(root->right, temp->data);
         }
@@ -137,21 +124,17 @@ Node* deleteNode(Node* root, int data) {
 
     int balance = getBalance(root);
 
-    // Left Left Case
     if (balance > 1 && getBalance(root->left) >= 0)
         return rightRotate(root);
 
-    // Left Right Case
     if (balance > 1 && getBalance(root->left) < 0) {
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
 
-    // Right Right Case
     if (balance < -1 && getBalance(root->right) <= 0)
         return leftRotate(root);
 
-    // Right Left Case
     if (balance < -1 && getBalance(root->right) > 0) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
@@ -159,7 +142,6 @@ Node* deleteNode(Node* root, int data) {
 
     return root;
 }
-
 void inorder(Node* root) {
     if (root == NULL) {
         return;
@@ -168,7 +150,6 @@ void inorder(Node* root) {
     cout << root->data << " ";
     inorder(root->right);
 }
-
 void preorder(Node* root) {
     if (root == NULL) {
         return;
@@ -177,7 +158,6 @@ void preorder(Node* root) {
     preorder(root->left);
     preorder(root->right);
 }
-
 void postorder(Node* root) {
     if (root == NULL) {
         return;
@@ -189,18 +169,17 @@ void postorder(Node* root) {
 Node* searchbst(Node* root, int x) {
     while (root != NULL) {
         if (root->data == x) {
-            return root; // Node with value x found
+            return root;
         }
         if (root->data > x) {
-            root = root->left; // Move to the left subtree
+            root = root->left; 
         } 
         else {
-            root = root->right; // Move to the right subtree
+            root = root->right; 
         }
     }
-    return nullptr; // Node with value x not found
+    return nullptr; 
 }
-
 int main() {
     Node* root = nullptr;
 
@@ -227,5 +206,4 @@ int main() {
         cout << "Found " << searchData << " in the AVL tree!" << endl;
     else
         cout << searchData << " not found in the AVL tree!" << endl;
-        
 }
