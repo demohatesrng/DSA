@@ -42,9 +42,9 @@ public:
     void traverse() {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                std::cout << data[i][j] << " ";
+                cout << data[i][j] << " ";
             }
-            std::cout << std::endl;
+            cout << endl;
         }
     }
     ~TwoDArray() {
@@ -69,13 +69,13 @@ int main() {
     array.insert(2, 2, 9);
 
     // Traverse
-    std::cout << "Original Array:" << std::endl;
+    cout << "Original Array:" << endl;
     array.traverse();
     // Search
-    std::cout << "Search for value 5: " << (array.search(5) ? "Found" : "Not Found") << std::endl;
+    cout << "Search for value 5: " << (array.search(5) ? "Found" : "Not Found") << endl;
     // Deletion
     array.remove(1, 1);
-    std::cout << "Array after removing element at (1, 1):" << std::endl;
+    cout << "Array after removing element at (1, 1):" << endl;
     array.traverse();
 
     return 0;
