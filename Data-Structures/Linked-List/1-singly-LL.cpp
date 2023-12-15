@@ -4,119 +4,168 @@ class Node {
 public:
     int data;
     Node* next;
-    
-    Node(int value){
-        this -> data = value;
-        this-> next = NULL;
+    Node* prev;
+
+    Node(int data) {
+        this->data = data;
+        this->next = nullptr;
+        this->prev = nullptr;
     }
 };
-class SinglyLinkedList {
-private:
+class linkedlist {
     Node* head;
+    Node* tail;
 public:
-    SinglyLinkedList(){
+    linkedlist() {
         this->head = nullptr;
+        this->tail = nullptr;
     }
-
-    void insertAtBeginning(int x) {
-        Node* newNode = new Node(x);
-        newNode->next = head;
-        head = newNode;
+    void insertathead(int data) {
+        Node* temp = new Node(data);
+        temp->next = head;
+        head = temp;
+        if (tail == nullptr) {
+            tail = temp;
+        }
     }
-    void insertAtPosition(int x, int position) {
+    void insertAtPosition(int position, int data) {
         if (position <= 0) {
-            insertAtBeginning(x);
+            insertathead(data);
             return;
         }
-
-        Node* newNode = new Node(x);
-        newNode->next = nullptr;
-
-        Node* cursor = head;
-        int cursorPosition = 0;
-
-        while (cursor != nullptr && cursorPosition < position - 1) {
-            cursor = cursor->next;
-            cursorPosition++;
+        Node* temp = head;
+        int cnt = 1;
+        while (cnt < position - 1 && temp != nullptr) {
+            temp = temp->next;
+            cnt++;
         }
-
-        if (cursor == nullptr) {
-            cout << "Invalid position." << endl;
+        if (temp == nullptr) {
+            cout << "Position out of bounds" << endl;
             return;
         }
+        Node* nodetoinsert = new Node(data);
+        nodetoinsert->next = temp->next;
+        temp->next = nodetoinsert;
 
-        newNode->next = cursor->next;
-        cursor->next = newNode;
+        if (nodetoinsert->next == nullptr) {
+            tail = nodetoinsert;
+        }
     }
-    void removeFromBeginning() {
+    void insertattail(int data) {
+        Node* temp = new Node(data);
+        if (tail == nullptr) {
+            head = temp;
+            tail = temp;
+        } else {
+            tail->next = temp;
+            tail = temp;
+        }
+    }
+    void deleteatHead() {
         if (head == nullptr) {
             cout << "List is empty" << endl;
             return;
         }
-
         Node* temp = head;
         head = head->next;
         delete temp;
     }
-
-    Node* search(int x) {
-        Node* cursor = head;
-        while (cursor != nullptr) {
-            if (cursor->data == x) {
-                return cursor;
-            }
-            cursor = cursor->next;
-        }
-        return nullptr;
-    }
-    void concatenate(SinglyLinkedList& otherList) {
+    void deleteAtTail() {
         if (head == nullptr) {
-            head = otherList.head;
+            cout << "List is empty" << endl;
+            return;
+        }
+        if (head->next == nullptr) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next != tail) {
+            temp = temp->next;
+        }
+        delete tail;
+        tail = temp;
+        tail->next = nullptr;
+    }
+    void deleteAtPosition(int position) {
+        if (head == nullptr) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        if (position <= 0) {
+            cout << "Invalid position" << endl;
+            return;
+        }
+        Node* temp = head;
+        if (position == 1) {
+            head = head->next;
+            delete temp;
         } 
         else {
-            Node* cursor = head;
-            while (cursor->next != nullptr) {
-                cursor = cursor->next;
+            Node* prev = nullptr;
+            for (int i = 1; i < position && temp != nullptr; ++i) {
+                prev = temp;
+                temp = temp->next;
             }
-            cursor->next = otherList.head;
+            if (temp == nullptr) {
+                cout << "Position out of bounds" << endl;
+                return;
+            }
+            prev->next = temp->next;
+            if (temp == tail) {
+                tail = prev;
+            }
+            delete temp;
         }
-        otherList.head = nullptr;
     }
-    void display() {
+    void print() {
         Node* cursor = head;
         while (cursor != nullptr) {
-            cout << cursor->data << " -> ";
+            cout << cursor->data << " ";
             cursor = cursor->next;
         }
-        cout << "nullptr" << endl;
+        cout << endl;
+    }
+    bool search(int val) {
+        Node* cursor = head;
+        while (cursor != nullptr) {
+            if (cursor->data == val) {
+                return true;
+            }
+            cursor = cursor->next;
+        }
+        return false;
     }
 };
 int main() {
-    SinglyLinkedList list1;
-    list1.insertAtBeginning(3);
-    list1.insertAtBeginning(2);
-    list1.insertAtBeginning(1);
-    list1.display(); 
+    linkedlist list1;
 
-    list1.insertAtPosition(4, 2);
-    list1.display(); 
+    list1.insertathead(5);
+    list1.insertathead(3);
+    list1.print();
 
-    list1.removeFromBeginning();
-    list1.display(); 
+    list1.insertAtPosition(2, 4);
+    list1.print();
 
-    SinglyLinkedList list2;
-    list2.insertAtBeginning(7);
-    list2.insertAtBeginning(6);
-    list2.insertAtBeginning(5);
+    list1.insertattail(19);
+    list1.print();
 
-    list1.concatenate(list2);
-    list1.display(); 
+    list1.deleteatHead();
+    list1.print();
 
-    Node* searchResult = list1.search(6);
-    if (searchResult != nullptr) {
-        cout << "Element 6 found at address: " << searchResult << endl;
-    } else {
-        cout << "Element 6 not found." << endl;
+    list1.deleteAtTail();
+    list1.print();
+
+    list1.deleteAtPosition(2);
+    list1.print();
+
+    int searchVal = 5;
+    if (list1.search(searchVal)) {
+        cout << "Element " << searchVal << " is present." << endl;
+    } 
+    else {
+        cout << "Element " << searchVal << " is not present." << endl;
     }
-    return 0;
 }
