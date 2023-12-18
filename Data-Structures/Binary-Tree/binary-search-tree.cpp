@@ -1,5 +1,4 @@
 #include <iostream>
-#include <queue>
 using namespace std;
 class node {
 public:
@@ -33,31 +32,6 @@ void takeinput(node* &root) {
     while (data != -1) {
         root = insertbst(root, data);
         cin >> data; // Update data for next iteration
-    }
-}
-void levelOrderTraversal(node* root) {
-    queue<node*> q;
-    q.push(root);
-    q.push(NULL);
-
-    while (!q.empty()) {
-        node* temp = q.front();
-        q.pop();
-        if (temp == NULL) {
-            cout << endl;
-            if (!q.empty()) {
-                q.push(NULL);
-            }
-        } 
-        else {
-            cout << temp->data << " ";
-            if (temp->left) {
-                q.push(temp->left);
-            }
-            if (temp->right) {
-                q.push(temp->right);
-            }
-        }
     }
 }
 node* searchbst(node* root, int x) {
@@ -144,9 +118,6 @@ int main() {
     cout << "Enter data for the binary search tree (-1 to stop):" << endl;
     takeinput(root);
 
-    cout << "Level Order Traversal:" << endl;
-    levelOrderTraversal(root);
-
     cout << "\nInorder Traversal:" << endl;
     inorder(root);
 
@@ -160,9 +131,6 @@ int main() {
     else {
         cout << "Value " << searchValue << " not found in the BST." << endl;
     }
-
-    cout << "\nMinimum value in the BST: " << (root != nullptr ? minval(root)->data : -1) << endl;
-    cout << "Maximum value in the BST: " << (root != nullptr ? maxval(root)->data : -1) << endl;
 
     cout << "\nEnter a value to delete from the BST: ";
     int deleteValue;

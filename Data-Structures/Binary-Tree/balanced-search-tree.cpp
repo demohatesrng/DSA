@@ -17,9 +17,8 @@ public:
 int max(int a, int b) {
     if(a>b)
         return a;
-    else{
+    else
         return b;
-    }
 }
 int height(Node* root) {
     if (root == nullptr) 
@@ -56,25 +55,29 @@ Node* leftRotate(Node* x) {
     return y;
 }
 Node* insert(Node* root, int data) {
-    if (root == nullptr) return new Node(data);
-
-    if (data < root->data)
+    if (root == nullptr){ 
+        root = new Node(data);
+        return root;
+ }
+    if (data < root->data){ 
         root->left = insert(root->left, data);
-    else if (data > root->data)
+ }
+    else if (data > root->data){ 
         root->right = insert(root->right, data);
-    else
+ }
+    else{ 
         return root; // Duplicate keys not allowed
-
+ }
     root->height = 1 + max(height(root->left), height(root->right));
 
     int balance = getBalance(root);
 
-    if (balance > 1 && data < root->left->data)
+    if (balance > 1 && data < root->left->data){ 
         return rightRotate(root);
-
-    if (balance < -1 && data > root->right->data)
+ }
+    if (balance < -1 && data > root->right->data){ 
         return leftRotate(root);
-
+ }
     if (balance > 1 && data > root->left->data) {
         root->left = leftRotate(root->left);
         return rightRotate(root);
@@ -84,7 +87,6 @@ Node* insert(Node* root, int data) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
-
     return root;
 }
 Node* minValueNode(Node* root) {
@@ -93,53 +95,31 @@ Node* minValueNode(Node* root) {
         temp = temp->left;
     return temp;
 }
-Node* deleteNode(Node* root, int data) {
-    if (root == nullptr) return root;
-
-    if (data < root->data)
-        root->left = deleteNode(root->left, data);
-    else if (data > root->data)
-        root->right = deleteNode(root->right, data);
-    else {
-        if (root->left == nullptr || root->right == nullptr) {
-            Node* temp = root->left ? root->left : root->right;
-            if (temp == nullptr) {
-                temp = root;
-                root = nullptr;
-            } 
-            else {
-                *root = *temp;
-            }
-            delete temp;
-        } else {
-            Node* temp = minValueNode(root->right);
-            root->data = temp->data;
-            root->right = deleteNode(root->right, temp->data);
+Node* deletefrombst(Node* root, int val){
+    if(root== NULL){
+        return root;
+    }
+    if (val < root->data) {
+        root->left = deletefrombst(root->left, val);
+    } 
+    else if (val > root->data) {
+        root->right = deletefrombst(root->right, val);
+    } 
+    else{
+        if(root->left == NULL){
+            Node* temp = root->right;
+            delete root;
+            return temp;
         }
+        else if (root->right == NULL) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        Node* temp = minValueNode(root->right);
+        root->data = temp->data;
+        root->right = deletefrombst(root->right, temp->data);
     }
-
-    if (root == nullptr) return root;
-
-    root->height = 1 + max(height(root->left), height(root->right));
-
-    int balance = getBalance(root);
-
-    if (balance > 1 && getBalance(root->left) >= 0)
-        return rightRotate(root);
-
-    if (balance > 1 && getBalance(root->left) < 0) {
-        root->left = leftRotate(root->left);
-        return rightRotate(root);
-    }
-
-    if (balance < -1 && getBalance(root->right) <= 0)
-        return leftRotate(root);
-
-    if (balance < -1 && getBalance(root->right) > 0) {
-        root->right = rightRotate(root->right);
-        return leftRotate(root);
-    }
-
     return root;
 }
 void inorder(Node* root) {
@@ -194,7 +174,7 @@ int main() {
     inorder(root);
     cout << endl;
 
-    root = deleteNode(root, 30);
+    root = deletefrombst(root, 10);
 
     cout << "Inorder traversal after deletion of 30: ";
     inorder(root);
@@ -206,4 +186,7 @@ int main() {
         cout << "Found " << searchData << " in the AVL tree!" << endl;
     else
         cout << searchData << " not found in the AVL tree!" << endl;
+
+    cout << "Inorder traversal of the AVL tree is: ";
+    inorder(root);
 }
