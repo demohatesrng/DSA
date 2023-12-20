@@ -1,11 +1,11 @@
+//queue and circular queue
 #include <iostream>
 using namespace std;
 const int MAX_SIZE = 5;
 class CircularQueue {
-private:
     int arr[MAX_SIZE];
-    int front, rear;
-
+    int front;
+    int rear;
 public:
     CircularQueue() {
         front = -1;
@@ -22,7 +22,7 @@ public:
 
     void enqueue(int value) {
         if (isFull()) {
-            cout << "queue is full. Cannot enqueue more elements"<<endl;
+            cout << "queue is full"<<endl;
             return;
         } 
         else if (isEmpty()) {
@@ -38,9 +38,11 @@ public:
         if (isEmpty()) {
             cout << "Queue is empty"<<endl;
             return;
-        } else if (front == rear) {
+        } 
+        else if (front == rear) {
             front = rear = -1;
-        } else {
+        } 
+        else {
             front = (front + 1) % MAX_SIZE;
         }
     }
@@ -64,5 +66,4 @@ int main() {
 
     queue.dequeue();
     cout << "Front element after dequeue: " << queue.peek() << endl;
-
 }
