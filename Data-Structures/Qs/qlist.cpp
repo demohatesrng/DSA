@@ -18,22 +18,20 @@ public:
         front = nullptr;
         rear = nullptr;
     }
-
     bool isEmpty() {
         return front == nullptr;
     }
-
     void enqueue(int value) {
         Node* newNode = new Node(value);
 
         if (isEmpty()) {
             front = rear = newNode;
-        } else {
+        } 
+        else {
             rear->next = newNode;
             rear = newNode;
         }
     }
-
     void dequeue() {
         if (isEmpty()) {
             cout << "queue is empty";
@@ -48,7 +46,6 @@ public:
             rear = nullptr;
         }
     }
-
     int peek() {
         if (isEmpty()) {
             cout << "queue is empty";
@@ -59,7 +56,6 @@ public:
 };
 int main() {
     Queue queue;
-
     queue.enqueue(5);
     queue.enqueue(10);
     queue.enqueue(15);

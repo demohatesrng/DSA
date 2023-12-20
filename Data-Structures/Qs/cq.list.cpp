@@ -12,23 +12,21 @@ public:
 };
 class CircularQueue {
     Node* rear;
-
 public:
     CircularQueue() {
         rear = nullptr;
     }
-
     bool isEmpty() {
         return rear == nullptr;
     }
-
     void enqueue(int value) {
         Node* newNode = new Node(value);
 
         if (isEmpty()) {
             newNode->next = newNode;
             rear = newNode;
-        } else {
+        } 
+        else {
             newNode->next = rear->next;
             rear->next = newNode;
             rear = newNode;
@@ -44,7 +42,8 @@ public:
         if (front == rear) {
             delete front;
             rear = nullptr;
-        } else {
+        } 
+        else {
             rear->next = front->next;
             delete front;
         }
