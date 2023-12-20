@@ -5,32 +5,26 @@ public:
     int data;
     Node* next;
 
-    Node(int value){
-        this->data = data;
-        this->next = nullptr;
+    Node(int value) {
+        data = value;
+        next = nullptr;
     }
 };
-
 class Queue {
-private:
     Node* front;
     Node* rear;
-
 public:
-    Queue() : front(nullptr), rear(nullptr) {}
-
-    ~Queue() {
-        while (!isEmpty()) {
-            dequeue();
-        }
+    Queue() {
+        front = nullptr;
+        rear = nullptr;
     }
 
     bool isEmpty() {
         return front == nullptr;
     }
 
-    void enqueue(int item) {
-        Node* newNode = new Node(item);
+    void enqueue(int value) {
+        Node* newNode = new Node(value);
 
         if (isEmpty()) {
             front = rear = newNode;
@@ -42,19 +36,23 @@ public:
 
     void dequeue() {
         if (isEmpty()) {
-            cout << "Queue is empty. Cannot dequeue." << endl;
+            cout << "queue is empty";
             return;
         }
 
         Node* temp = front;
         front = front->next;
         delete temp;
+
+        if (front == nullptr) {
+            rear = nullptr;
+        }
     }
 
     int peek() {
         if (isEmpty()) {
-            cerr << "Queue is empty. Cannot peek." << endl;
-            return -1; // Return a default value
+            cout << "queue is empty";
+            return -1; 
         }
         return front->data;
     }
@@ -62,14 +60,12 @@ public:
 int main() {
     Queue queue;
 
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
+    queue.enqueue(5);
+    queue.enqueue(10);
+    queue.enqueue(15);
 
     cout << "Front element: " << queue.peek() << endl;
 
     queue.dequeue();
     cout << "Front element after dequeue: " << queue.peek() << endl;
-
-    return 0;
 }
