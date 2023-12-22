@@ -58,16 +58,16 @@ Node* insert(Node* root, int data) {
     if (root == nullptr){ 
         root = new Node(data);
         return root;
- }
+    }
     if (data < root->data){ 
         root->left = insert(root->left, data);
- }
+    }
     else if (data > root->data){ 
         root->right = insert(root->right, data);
- }
+    }
     else{ 
-        return root; // Duplicate keys not allowed
- }
+        return root;
+    }
     root->height = 1 + max(height(root->left), height(root->right));
 
     int balance = getBalance(root);

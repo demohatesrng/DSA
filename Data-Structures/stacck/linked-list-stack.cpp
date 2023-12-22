@@ -21,7 +21,6 @@ class Stack {
             newNode->next = top;
             top = newNode;
         }
-
         void pop() {
             if (isEmpty()) {
                 cout << "Stack is empty. Cannot pop." << endl;
@@ -31,7 +30,6 @@ class Stack {
             top = top->next;
             delete temp;
         }
-
         int peek() {
             if (isEmpty()) {
                 cout << "Stack is empty. Cannot peek." << endl;
@@ -39,11 +37,9 @@ class Stack {
             }
             return top->data;
         }
-
         bool isEmpty() {
             return top == nullptr;
         }
-        
         void display() {
         Node* cursor = top;
         cout << "Stack: ";
@@ -63,7 +59,7 @@ class Stack {
             cursor = cursor->next;
             position++;
         }
-        return -1; // Element not found
+        return -1;
     }
 };
 int main() {
@@ -79,6 +75,4 @@ int main() {
     stack.pop();
     cout << "Top element after pop: " << stack.peek() << endl;
     stack.display();
-
-    return 0;
 }

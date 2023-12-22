@@ -37,16 +37,16 @@ void takeinput(node* &root) {
 node* searchbst(node* root, int x) {
     while (root != NULL) {
         if (root->data == x) {
-            return root; // Node with value x found
+            return root;
         }
         if (root->data > x) {
-            root = root->left; // Move to the left subtree
+            root = root->left;
         } 
         else {
-            root = root->right; // Move to the right subtree
+            root = root->right;
         }
     }
-    return nullptr; // Node with value x not found
+    return nullptr;
 }
 void inorder(node* root) {
     if (root == NULL) {
