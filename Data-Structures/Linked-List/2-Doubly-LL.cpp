@@ -57,35 +57,6 @@ class DLL{
         }
         head = newNode;
     }
-    void insertAtPosition(int x, int position){
-        if(position<=0){
-            insertAtHead(x);
-            return;
-        }
-        Node* newNode = new Node(x);
-
-        Node* cursor = head;
-        int cursorposition = 0;
-
-        while(cursor!= nullptr && cursorposition < position-1){
-            cursor = cursor->next;
-            cursorposition++;
-        }
-        if(cursor == nullptr){
-            cout<<"Invalid position"<<endl;
-            return;
-        }
-        newNode->next = cursor->next;
-        newNode->prev = cursor;
-        cursor->next = newNode;
-
-        if(newNode->next != nullptr){
-            newNode->next->prev = newNode;
-        }
-        else{
-            tail = newNode;
-        }
-    }
     void insertAtEnd(int x) {
     Node* newNode = new Node(x);
     newNode->prev = tail;
@@ -122,19 +93,51 @@ class DLL{
     }
     delete temp;
     }
+    void concatenate(DLL& list2) {
+        if (head == nullptr) {
+            head = list2.head;
+            tail = list2.tail;
+            return;
+        }
+        
+        if (list2.head != nullptr) {
+            tail->next = list2.head;
+            list2.head->prev = tail;
+            tail = list2.tail;
+        }
+        
+        list2.head = list2.tail = nullptr; // Prevents list2 from being destructed with its elements
+    }
+    void sort() {
+        if (head == nullptr || head->next == head) return;
+
+        Node* current = head;
+        Node* index = nullptr;
+        int temp;
+
+        do {
+            index = current->next;
+            while (index != head) {
+                if (current->data > index->data) {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        } while (current != head);
+    }
 };
 int main(){
     DLL doublyLinkedList;
 
     doublyLinkedList.insertAtHead(1);
     doublyLinkedList.insertAtEnd(3);
-    doublyLinkedList.insertAtPosition(2, 2);
 
     doublyLinkedList.displayForward(); // Should print "1 2 3 nullptr"
     doublyLinkedList.displayBack();    // Should print "3 2 1 nullptr"
 
     doublyLinkedList.displayForward(); // Should print "1 3 nullptr"
     doublyLinkedList.displayBack();    // Should print "3 1 nullptr"
-
-    return 0;
 }

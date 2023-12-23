@@ -31,7 +31,6 @@ public:
     cout << endl;
 }
 
-
     bool search(int value) {
     if (head == nullptr) {
         return false;
@@ -45,7 +44,6 @@ public:
     } while (cursor != head);
     return false;
 }
-
 
     void insertFront(int value) {
         Node* newNode = new Node(value);
@@ -100,6 +98,23 @@ public:
             tail->next = head;
             delete temp;
         }
+    }
+
+    bool isCircular(Node* head) {
+    if (head == nullptr) return false;
+
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            return true;
+        }
+    }
+    return false;
     }
 
     void merge(CircularLinkedList& list2) {

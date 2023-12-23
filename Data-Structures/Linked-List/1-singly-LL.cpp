@@ -4,12 +4,10 @@ class Node {
 public:
     int data;
     Node* next;
-    Node* prev;
 
     Node(int data) {
         this->data = data;
         this->next = nullptr;
-        this->prev = nullptr;
     }
 };
 class linkedlist {
@@ -28,35 +26,13 @@ public:
             tail = temp;
         }
     }
-    void insertAtPosition(int position, int data) {
-        if (position <= 0) {
-            insertathead(data);
-            return;
-        }
-        Node* temp = head;
-        int cnt = 1;
-        while (cnt < position - 1 && temp != nullptr) {
-            temp = temp->next;
-            cnt++;
-        }
-        if (temp == nullptr) {
-            cout << "Position out of bounds" << endl;
-            return;
-        }
-        Node* nodetoinsert = new Node(data);
-        nodetoinsert->next = temp->next;
-        temp->next = nodetoinsert;
-
-        if (nodetoinsert->next == nullptr) {
-            tail = nodetoinsert;
-        }
-    }
     void insertattail(int data) {
         Node* temp = new Node(data);
         if (tail == nullptr) {
             head = temp;
             tail = temp;
-        } else {
+        } 
+        else {
             tail->next = temp;
             tail = temp;
         }
@@ -89,37 +65,6 @@ public:
         tail = temp;
         tail->next = nullptr;
     }
-    void deleteAtPosition(int position) {
-        if (head == nullptr) {
-            cout << "List is empty" << endl;
-            return;
-        }
-        if (position <= 0) {
-            cout << "Invalid position" << endl;
-            return;
-        }
-        Node* temp = head;
-        if (position == 1) {
-            head = head->next;
-            delete temp;
-        } 
-        else {
-            Node* prev = nullptr;
-            for (int i = 1; i < position && temp != nullptr; ++i) {
-                prev = temp;
-                temp = temp->next;
-            }
-            if (temp == nullptr) {
-                cout << "Position out of bounds" << endl;
-                return;
-            }
-            prev->next = temp->next;
-            if (temp == tail) {
-                tail = prev;
-            }
-            delete temp;
-        }
-    }
     void print() {
         Node* cursor = head;
         while (cursor != nullptr) {
@@ -138,15 +83,62 @@ public:
         }
         return false;
     }
+    void reverse() {
+    if (!head || !head->next) return;
+
+    Node* prev = nullptr;
+    Node* current = head;
+    Node* nextNode;
+
+    while (current != nullptr) {
+        nextNode = current->next;
+        current->next = prev;
+        prev = current;
+        current = nextNode;
+    }
+    head = prev;
+    }
+    void sort() {
+        if (head == nullptr || head->next == head) return;
+
+        Node* current = head;
+        Node* index = nullptr;
+        int temp;
+
+        do {
+            index = current->next;
+            while (index != head) {
+                if (current->data > index->data) {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        } while (current != head);
+    }
+    void concatenate(linkedlist& list2) {
+        if (head == nullptr) {
+            head = list2.head;
+            return;
+        }
+        
+        Node* current = head;
+        
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        
+        current->next = list2.head;
+        list2.head = nullptr;
+    }
 };
 int main() {
     linkedlist list1;
 
     list1.insertathead(5);
     list1.insertathead(3);
-    list1.print();
-
-    list1.insertAtPosition(2, 4);
     list1.print();
 
     list1.insertattail(19);
@@ -156,9 +148,6 @@ int main() {
     list1.print();
 
     list1.deleteAtTail();
-    list1.print();
-
-    list1.deleteAtPosition(2);
     list1.print();
 
     int searchVal = 5;
