@@ -95,6 +95,73 @@ public:
         }
     }
 
+    void merge(CircularLinkedList& list2) {
+        if (list2.head == nullptr) return;
+
+        Node* temp = list2.head;
+        do {
+            insertBack(temp->data);
+            temp = temp->next;
+        } while (temp != list2.head);
+    }
+
+    void sort() {
+        if (head == nullptr || head->next == head) return;
+
+        Node* current = head;
+        Node* index = nullptr;
+        int temp;
+
+        do {
+            index = current->next;
+            while (index != head) {
+                if (current->data > index->data) {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        } while (current != head);
+    }
+
+    void displayReverse() {
+        if (head == nullptr) {
+            cout << "List is empty." << endl;
+            return;
+        }
+
+        Node* prev = nullptr;
+        Node* current = head;
+        Node* next;
+        do {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        } while (current != head);
+
+        Node* temp = prev;
+        do {
+            cout << temp->data << " ";
+            temp = temp->next;
+        } while (temp != prev);
+
+        // Restore the original structure
+        current = head;
+        prev = nullptr;
+        do {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        } while (current != head);
+        head->next = prev;
+
+        cout << endl;
+    }
+
     void removeBack() {
         if (head == nullptr) {
             cout << "List is empty. Nothing to remove." << endl;
