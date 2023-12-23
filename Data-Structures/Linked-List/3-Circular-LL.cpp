@@ -184,15 +184,29 @@ public:
     }
 };
 int main() {
-    CircularLinkedList cll;
+    CircularLinkedList list1;
+    list1.insertFront(5);
+    list1.insertFront(3);
+    list1.insertFront(7);
 
-    cll.insertFront(1);
-    cll.insertFront(2);
-    cll.insertFront(3);
-    cll.insertFront(4);
-    cll.insertFront(5);
-    cll.insertBack(6);
-    cll.display();
+    CircularLinkedList list2;
+    list2.insertFront(10);
+    list2.insertFront(8);
+    list2.insertFront(12);
 
-    return 0;
+    cout << "List 1: ";
+    list1.display();
+    cout << "List 2: ";
+    list2.display();
+
+    list1.merge(list2);
+    cout << "Merged list: ";
+    list1.display();
+
+    cout << "Sorted list: ";
+    list1.sort();
+    list1.display();
+
+    cout << "Reversed list: ";
+    list1.displayReverse();
 }
