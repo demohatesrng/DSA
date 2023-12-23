@@ -97,30 +97,5 @@ public:
 };
 int main() {
     linkedlist list1;
-
     list1.insertattail(5);
-    list1.insertattail(3);
-    list1.insertattail(12);
-    list1.insertattail(19);
-    list1.insertattail(6);
-    list1.insertattail(8);
-    list1.insertattail(22);
-    list1.insertattail(31);
-
-    list1.print();
-    list1.printalt();
-
-    list1.deleteatHead();
-    list1.print();
-
-    list1.deleteAtTail();
-    list1.print();
-
-    int searchVal = 5;
-    if (list1.search(searchVal)) {
-        cout << "Element " << searchVal << " is present." << endl;
-    } 
-    else {
-        cout << "Element " << searchVal << " is not present." << endl;
-    }
 }
