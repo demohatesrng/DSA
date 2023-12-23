@@ -58,15 +58,15 @@ class DLL{
         head = newNode;
     }
     void insertAtEnd(int x) {
-    Node* newNode = new Node(x);
-    newNode->prev = tail;
-    newNode->next = nullptr;
+        Node* newNode = new Node(x);
+        newNode->prev = tail;
+        newNode->next = nullptr;
 
-    if (tail != nullptr) {
-        tail->next = newNode;
+        if (tail != nullptr) {
+            tail->next = newNode;
+        }
+        tail = newNode;
     }
-    tail = newNode;
-}
     void removeFromHead(){
         if(head == nullptr){
             cout<<"list is empty"<<endl;
@@ -105,52 +105,21 @@ class DLL{
             list2.head->prev = tail;
             tail = list2.tail;
         }
-        
-        list2.head = list2.tail = nullptr; // Prevents list2 from being destructed with its elements
+        list2.head = list2.tail = nullptr;
     }
-    void sort() {
-        if (head == nullptr || head->next == head) return;
-
-        Node* current = head;
-        Node* index = nullptr;
-        int temp;
-
-        do {
-            index = current->next;
-            while (index != head) {
-                if (current->data > index->data) {
-                    temp = current->data;
-                    current->data = index->data;
-                    index->data = temp;
-                }
-                index = index->next;
-            }
-            current = current->next;
-        } while (current != head);
-    }
-    void printAlternateDoubly(Node* head) {
-    if (head == nullptr)
-        return;
-    Node* current = head;
-    while (current != nullptr && current->next != nullptr) {
-        cout << current->next->data << " ";
-        if (current->next->next != nullptr)
-            current = current->next->next;
-        else
-            break;
+    void printalt() {
+        Node* cursor = head;
+        while (cursor != nullptr && cursor->next != nullptr) {
+            cout << cursor->next->data << " ";
+            cursor = cursor->next->next;
         }
-    cout <<endl;
+        cout << endl;
     }
 };
 int main(){
     DLL doublyLinkedList;
-
     doublyLinkedList.insertAtHead(1);
-    doublyLinkedList.insertAtEnd(3);
-
     doublyLinkedList.displayForward(); 
-    doublyLinkedList.displayBack();
-
-    doublyLinkedList.displayForward();
     doublyLinkedList.displayBack();  
+    doublyLinkedList.printalt();
 }

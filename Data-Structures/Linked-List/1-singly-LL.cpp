@@ -22,20 +22,11 @@ public:
         Node* temp = new Node(data);
         temp->next = head;
         head = temp;
-        if (tail == nullptr) {
-            tail = temp;
-        }
     }
     void insertattail(int data) {
         Node* temp = new Node(data);
-        if (tail == nullptr) {
-            head = temp;
-            tail = temp;
-        } 
-        else {
             tail->next = temp;
             tail = temp;
-        }
     }
     void deleteatHead() {
         if (head == nullptr) {
@@ -83,53 +74,15 @@ public:
         }
         return false;
     }
-    void reverse() {
-    if (!head || !head->next) return;
-
-    Node* prev = nullptr;
-    Node* current = head;
-    Node* nextNode;
-
-    while (current != nullptr) {
-        nextNode = current->next;
-        current->next = prev;
-        prev = current;
-        current = nextNode;
-    }
-    head = prev;
-    }
-    void sort() {
-        if (head == nullptr || head->next == head) return;
-
-        Node* current = head;
-        Node* index = nullptr;
-        int temp;
-
-        do {
-            index = current->next;
-            while (index != head) {
-                if (current->data > index->data) {
-                    temp = current->data;
-                    current->data = index->data;
-                    index->data = temp;
-                }
-                index = index->next;
-            }
-            current = current->next;
-        } while (current != head);
-    }
     void concatenate(linkedlist& list2) {
         if (head == nullptr) {
             head = list2.head;
             return;
         }
-        
         Node* current = head;
-        
         while (current->next != nullptr) {
             current = current->next;
         }
-        
         current->next = list2.head;
         list2.head = nullptr;
     }
