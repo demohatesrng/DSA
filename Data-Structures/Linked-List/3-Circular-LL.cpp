@@ -168,6 +168,20 @@ public:
             delete tail;
         }
     }
+    void printAlternateCircular(Node* head) {
+    if (head == nullptr)
+        return;
+    Node* current = head->next;
+    do{
+        cout<<current->data << " ";
+        if(current->next != head)
+            current = current->next->next;
+        else
+            break;
+        } 
+    while (current != nullptr && current != head);
+        cout<<endl;
+    }
 };
 int main() {
     CircularLinkedList list1;

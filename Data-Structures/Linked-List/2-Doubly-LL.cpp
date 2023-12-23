@@ -128,6 +128,19 @@ class DLL{
             current = current->next;
         } while (current != head);
     }
+    void printAlternateDoubly(Node* head) {
+    if (head == nullptr)
+        return;
+    Node* current = head;
+    while (current != nullptr && current->next != nullptr) {
+        cout << current->next->data << " ";
+        if (current->next->next != nullptr)
+            current = current->next->next;
+        else
+            break;
+        }
+    cout <<endl;
+    }
 };
 int main(){
     DLL doublyLinkedList;
@@ -135,9 +148,9 @@ int main(){
     doublyLinkedList.insertAtHead(1);
     doublyLinkedList.insertAtEnd(3);
 
-    doublyLinkedList.displayForward(); // Should print "1 2 3 nullptr"
-    doublyLinkedList.displayBack();    // Should print "3 2 1 nullptr"
+    doublyLinkedList.displayForward(); 
+    doublyLinkedList.displayBack();
 
-    doublyLinkedList.displayForward(); // Should print "1 3 nullptr"
-    doublyLinkedList.displayBack();    // Should print "3 1 nullptr"
+    doublyLinkedList.displayForward();
+    doublyLinkedList.displayBack();  
 }
