@@ -10,7 +10,6 @@ public:
         this->next = nullptr;
     }
 };
-//comment
 class CircularLinkedList {
 private:
     Node* head;
@@ -32,6 +31,7 @@ public:
     cout << endl;
 }
 
+
     bool search(int value) {
     if (head == nullptr) {
         return false;
@@ -45,6 +45,7 @@ public:
     } while (cursor != head);
     return false;
 }
+
 
     void insertFront(int value) {
         Node* newNode = new Node(value);
@@ -101,6 +102,37 @@ public:
         }
     }
 
+    void merge(CircularLinkedList& list2) {
+        if (list2.head == nullptr) return;
+
+        Node* temp = list2.head;
+        do {
+            insertBack(temp->data);
+            temp = temp->next;
+        } while (temp != list2.head);
+    }
+
+    void sort() {
+        if (head == nullptr || head->next == head) return;
+
+        Node* current = head;
+        Node* index = nullptr;
+        int temp;
+
+        do {
+            index = current->next;
+            while (index != head) {
+                if (current->data > index->data) {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        } while (current != head);
+    }
+
     void removeBack() {
         if (head == nullptr) {
             cout << "List is empty. Nothing to remove." << endl;
@@ -123,15 +155,26 @@ public:
     }
 };
 int main() {
-    CircularLinkedList cll;
+    CircularLinkedList list1;
+    list1.insertFront(5);
+    list1.insertFront(3);
+    list1.insertFront(7);
 
-    cll.insertFront(1);
-    cll.insertFront(2);
-    cll.insertFront(3);
-    cll.insertFront(4);
-    cll.insertFront(5);
-    cll.insertBack(6);
-    cll.display();
+    CircularLinkedList list2;
+    list2.insertFront(10);
+    list2.insertFront(8);
+    list2.insertFront(12);
 
-    return 0;
+    cout << "List 1: ";
+    list1.display();
+    cout << "List 2: ";
+    list2.display();
+
+    list1.merge(list2);
+    cout << "Merged list: ";
+    list1.display();
+
+    cout << "Sorted list: ";
+    list1.sort();
+    list1.display();
 }
