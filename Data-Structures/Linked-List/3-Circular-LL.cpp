@@ -4,20 +4,17 @@ class Node {
 public:
     int data;
     Node* next;
-
     Node(int data){
         this-> data = data;
         this->next = nullptr;
     }
 };
 class CircularLinkedList {
-private:
     Node* head;
 public:
     CircularLinkedList(){
         this->head = nullptr;
     }
-
     void display() {
     if (head == nullptr) {
         cout << "List is empty." << endl;
@@ -30,7 +27,6 @@ public:
     } while (cursor != head);
     cout << endl;
 }
-
     bool search(int value) {
     if (head == nullptr) {
         return false;
@@ -44,10 +40,8 @@ public:
     } while (cursor != head);
     return false;
 }
-
     void insertFront(int value) {
         Node* newNode = new Node(value);
-
         if (head == nullptr) {
             newNode->next = newNode;
             head = newNode;
@@ -62,7 +56,6 @@ public:
             head = newNode;
         }
     }
-
     void insertBack(int value) {
         Node* newNode = new Node(value);
 
@@ -78,17 +71,16 @@ public:
             tail->next = newNode;
         }
     }
-
     void removeFront() {
         if (head == nullptr) {
             cout << "List is empty. Nothing to remove." << endl;
             return;
         }
-
         if (head->next == head) {
             delete head;
             head = nullptr;
-        } else {
+        } 
+        else {
             Node* tail = head;
             while (tail->next != head) {
                 tail = tail->next;
@@ -99,65 +91,53 @@ public:
             delete temp;
         }
     }
-
     bool isCircular(Node* head) {
     if (head == nullptr) return false;
-
     Node* slow = head;
     Node* fast = head;
-
     while (fast != nullptr && fast->next != nullptr) {
         slow = slow->next;
         fast = fast->next->next;
-
         if (slow == fast) {
             return true;
         }
     }
     return false;
     }
-
     void merge(CircularLinkedList& list2) {
         if (list2.head == nullptr) return;
-
         Node* temp = list2.head;
         do {
             insertBack(temp->data);
             temp = temp->next;
         } while (temp != list2.head);
     }
-
-    void sort() {
-        if (head == nullptr || head->next == head) return;
-
-        Node* current = head;
-        Node* index = nullptr;
-        int temp;
-
-        do {
-            index = current->next;
-            while (index != head) {
-                if (current->data > index->data) {
-                    temp = current->data;
-                    current->data = index->data;
-                    index->data = temp;
-                }
-                index = index->next;
-            }
-            current = current->next;
-        } while (current != head);
+    void sortLinkedList() {
+    if (head == nullptr || head->next == head) {
+        return;
     }
-
+    Node* temp = nullptr;
+    bool swapped = true;
+    while (swapped) {
+        swapped = false;
+        for (temp = head; temp->next != head; temp = temp->next) {
+            if (temp->data > temp->next->data) {
+                swap(temp->data, temp->next->data);
+                swapped = true;
+            }
+        }
+    }
+}
     void removeBack() {
         if (head == nullptr) {
             cout << "List is empty. Nothing to remove." << endl;
             return;
         }
-
         if (head->next == head) {
             delete head;
             head = nullptr;
-        } else {
+        } 
+        else {
             Node* tail = head;
             Node* previous = nullptr;
             while (tail->next != head) {
@@ -168,19 +148,13 @@ public:
             delete tail;
         }
     }
-    void printAlternateCircular(Node* head) {
-    if (head == nullptr)
-        return;
-    Node* current = head->next;
-    do{
-        cout<<current->data << " ";
-        if(current->next != head)
-            current = current->next->next;
-        else
-            break;
-        } 
-    while (current != nullptr && current != head);
-        cout<<endl;
+    void printalt() {
+        Node* cursor = head;
+        while (cursor != nullptr && cursor->next != nullptr) {
+            cout << cursor->next->data << " ";
+            cursor = cursor->next->next;
+        }
+        cout << endl;
     }
 };
 int main() {
@@ -204,6 +178,6 @@ int main() {
     list1.display();
 
     cout << "Sorted list: ";
-    list1.sort();
+    list1.sortLinkedList();
     list1.display();
 }

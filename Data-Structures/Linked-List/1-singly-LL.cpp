@@ -94,6 +94,15 @@ public:
         }
         cout << endl;
     }
+    void sortLinkedList(Node* head) {
+    for (Node* i = head; i != nullptr; i = i->next) {
+        for (Node* j = head; j->next != nullptr; j = j->next) {
+            if (j->data > j->next->data) {
+                    swap(j->data, j->next->data);
+                }
+            }
+        }
+    }
 };
 int main() {
     linkedlist list1;

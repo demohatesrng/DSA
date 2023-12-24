@@ -115,11 +115,21 @@ class DLL{
         }
         cout << endl;
     }
+    void sortLinkedList() {
+        if (head == nullptr || head == tail) {
+            return;
+        }
+        for (Node* i = head; i != nullptr; i = i->next) {
+            for (Node* j = head; j->next != nullptr; j = j->next) {
+                if (j->data > j->next->data) {
+                    swap(j->data, j->next->data);
+                }
+            }
+        }
+    }
 };
 int main(){
     DLL doublyLinkedList;
-    doublyLinkedList.insertAtHead(1);
-    doublyLinkedList.displayForward(); 
-    doublyLinkedList.displayBack();  
+    doublyLinkedList.insertAtHead(1); 
     doublyLinkedList.printalt();
 }
