@@ -28,6 +28,26 @@ public:
             tail->next = temp;
             tail = temp;
     }
+    void insertatPosition(int position, int data){
+        if(position<1){
+            insertathead(data);
+            return;
+        Node* temp = head;
+        int cnt = 1;
+        while(cnt < position-1){
+            temp = temp->next;
+            cnt++;
+        }
+        Node* toinsert = new Node(data);
+        toinsert->next = temp->next;
+        temp->next = toinsert;
+
+        if(temp->next == NULL){
+            insertattail(data);
+            return;
+            }
+        }
+    }
     void deleteatHead() {
         if (head == nullptr) {
             cout << "List is empty" << endl;
@@ -55,6 +75,20 @@ public:
         delete tail;
         tail = temp;
         tail->next = nullptr;
+    }
+    void deleteatposition(int position){
+        Node* cursor = head;
+        Node* prev = nullptr;
+        int cnt = 1;
+
+        while(cnt< position){
+            prev = cursor;
+            cursor = cursor->next;
+            cnt++;
+        }
+        prev->next = cursor->next;
+        cursor->next = nullptr;
+        delete cursor;
     }
     void print() {
         Node* cursor = head;
