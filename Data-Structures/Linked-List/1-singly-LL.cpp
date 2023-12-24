@@ -25,8 +25,8 @@ public:
     }
     void insertattail(int data) {
         Node* temp = new Node(data);
-            tail->next = temp;
-            tail = temp;
+        tail->next = temp;
+        tail = temp;
     }
     void insertatPosition(int position, int data){
         if(position<1){

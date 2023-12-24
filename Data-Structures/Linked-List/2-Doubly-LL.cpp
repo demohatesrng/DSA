@@ -48,24 +48,18 @@ class DLL{
         return nullptr;
     }
     void insertAtHead(int x){
-        Node* newNode = new Node(x);
-        newNode->next = head;
-        newNode->prev = nullptr;
-
-        if(head!=nullptr){
-            head->prev = newNode;
-        }
-        head = newNode;
+        Node* temp = new Node(x);
+        temp->next = head;
+        temp->prev = nullptr;
+        head->prev = temp;
+        head = temp;
     }
     void insertAtEnd(int x) {
-        Node* newNode = new Node(x);
-        newNode->prev = tail;
-        newNode->next = nullptr;
-
-        if (tail != nullptr) {
-            tail->next = newNode;
-        }
-        tail = newNode;
+        Node* temp = new Node(x);
+        temp->prev = tail;
+        temp->next = nullptr;
+        tail->next = temp;
+        tail = temp;
     }
     void removeFromHead(){
         if(head == nullptr){
