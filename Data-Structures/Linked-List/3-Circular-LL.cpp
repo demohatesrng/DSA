@@ -1,183 +1,98 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 class Node {
-public:
+    public:
     int data;
     Node* next;
-    Node(int data){
-        this-> data = data;
-        this->next = nullptr;
+    Node(int d) {
+        this->data = d;
+        this->next = NULL;
     }
 };
-class CircularLinkedList {
-    Node* head;
-public:
-    CircularLinkedList(){
-        this->head = nullptr;
+void insertNode(Node* &tail, int element, int d) {
+    //empty list
+    if(tail == NULL) {
+        Node* newNode = new Node(d);
+        tail = newNode;
+        newNode -> next = newNode;
     }
-    void display() {
-    if (head == nullptr) {
-        cout << "List is empty." << endl;
-        return;
+    else{
+        //non-empty list
+        //assuming that the element is present in the list
+        Node* curr = tail;
+        while(curr->data != element) {
+            curr = curr -> next;
+        }
+        //element found -> curr is representing element wala node
+        Node* temp = new Node(d);
+        temp -> next = curr -> next;
+        curr -> next = temp;
     }
-    Node* cursor = head;
+}    
+void print(Node* tail) {
+    Node* temp = tail;
+    //empty list
+    if(tail == NULL) {
+        cout << "List is Empty "<< endl;
+        return ;
+    }
     do {
-        cout << cursor->data << " -> ";
-        cursor = cursor->next;
-    } while (cursor != head);
+        cout << tail -> data << " ";
+        tail = tail -> next;
+    } while(tail != temp);
     cout << endl;
-}
-    bool search(int value) {
-    if (head == nullptr) {
-        return false;
-    }
-    Node* cursor = head;
-    do {
-        if (cursor->data == value) {
-            return true;
-        }
-        cursor = cursor->next;
-    } while (cursor != head);
-    return false;
-}
-    void insertFront(int value) {
-        Node* newNode = new Node(value);
-        if (head == nullptr) {
-            newNode->next = newNode;
-            head = newNode;
-        } 
-        else {
-            newNode->next = head;
-            Node* tail = head;
-            while (tail->next != head) {
-                tail = tail->next;
-            }
-            tail->next = newNode;
-            head = newNode;
-        }
-    }
-    void insertBack(int value) {
-        Node* newNode = new Node(value);
-
-        if (head == nullptr) {
-            newNode->next = newNode;
-            head = newNode;
-        } else {
-            newNode->next = head;
-            Node* tail = head;
-            while (tail->next != head) {
-                tail = tail->next;
-            }
-            tail->next = newNode;
-        }
-    }
-    void removeFront() {
-        if (head == nullptr) {
-            cout << "List is empty. Nothing to remove." << endl;
-            return;
-        }
-        if (head->next == head) {
-            delete head;
-            head = nullptr;
-        } 
-        else {
-            Node* tail = head;
-            while (tail->next != head) {
-                tail = tail->next;
-            }
-            Node* temp = head;
-            head = head->next;
-            tail->next = head;
-            delete temp;
-        }
-    }
-    bool isCircular(Node* head) {
-    if (head == nullptr) return false;
-    Node* slow = head;
-    Node* fast = head;
-    while (fast != nullptr && fast->next != nullptr) {
-        slow = slow->next;
-        fast = fast->next->next;
-        if (slow == fast) {
-            return true;
-        }
-    }
-    return false;
-    }
-    void merge(CircularLinkedList& list2) {
-        if (list2.head == nullptr) return;
-        Node* temp = list2.head;
-        do {
-            insertBack(temp->data);
-            temp = temp->next;
-        } while (temp != list2.head);
-    }
-    void sortLinkedList() {
-    if (head == nullptr || head->next == head) {
+} 
+void deleteNode(Node* &tail, int value) {
+    //empty list
+    if(tail == NULL) {
+        cout << " List is empty, please check again" << endl;
         return;
     }
-    Node* temp = nullptr;
-    bool swapped = true;
-    while (swapped) {
-        swapped = false;
-        for (temp = head; temp->next != head; temp = temp->next) {
-            if (temp->data > temp->next->data) {
-                swap(temp->data, temp->next->data);
-                swapped = true;
-            }
+    else{
+        //non-empty
+        //assuming that "value" is present in the Linked List
+        Node* prev = tail;
+        Node* curr = prev -> next;
+
+        while(curr -> data != value) {
+            prev = curr;
+            curr = curr -> next;
         }
+        prev -> next = curr -> next;
+        //1 Node Linked List
+        if(curr == prev) {
+            tail = NULL;
+        }
+        //>=2 Node linked list
+        else if(tail == curr ) {
+            tail = prev;
+        }
+        curr -> next = NULL;
+        delete curr;
     }
 }
-    void removeBack() {
-        if (head == nullptr) {
-            cout << "List is empty. Nothing to remove." << endl;
-            return;
-        }
-        if (head->next == head) {
-            delete head;
-            head = nullptr;
-        } 
-        else {
-            Node* tail = head;
-            Node* previous = nullptr;
-            while (tail->next != head) {
-                previous = tail;
-                tail = tail->next;
-            }
-            previous->next = head;
-            delete tail;
-        }
+bool isCircularList(Node* head) {
+    //empty list
+    if(head == NULL) {
+        return true;
     }
-    void printalt() {
-        Node* cursor = head;
-        while (cursor != nullptr && cursor->next != nullptr) {
-            cout << cursor->next->data << " ";
-            cursor = cursor->next->next;
-        }
-        cout << endl;
+    Node* temp = head -> next;
+    while(temp != NULL && temp != head ) {
+        temp = temp -> next;
     }
-};
+    if(temp == head ) {
+        return true;
+    }
+    return false;
+}
 int main() {
-    CircularLinkedList list1;
-    list1.insertFront(5);
-    list1.insertFront(3);
-    list1.insertFront(7);
-
-    CircularLinkedList list2;
-    list2.insertFront(10);
-    list2.insertFront(8);
-    list2.insertFront(12);
-
-    cout << "List 1: ";
-    list1.display();
-    cout << "List 2: ";
-    list2.display();
-
-    list1.merge(list2);
-    cout << "Merged list: ";
-    list1.display();
-
-    cout << "Sorted list: ";
-    list1.sortLinkedList();
-    list1.display();
+    Node* tail = NULL;
+   // insertNode(tail, 5, 3);
+    //print(tail);
+    if(isCircularList(tail)) {
+        cout << " Linked List is Circular in nature" << endl;
+    }
+    else{
+        cout << "Linked List is not Circular " << endl;
+    }
 }
