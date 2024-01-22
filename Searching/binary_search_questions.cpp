@@ -77,4 +77,72 @@ int main(){
 return 0;
 }
 
-//
+// Find Pivot in array -> min of array
+#include <iostream>
+using namespace std;
+int pivot_element(int arr[], int n){
+    int s = 0;
+    int e = n-1;
+    int m = s+(e-s)/2;
+    while(s<=e){
+        if(arr[m]>=0){
+            s = m+1;
+        }
+        else{
+            e=m;
+        }
+        int m = s+(e-s)/2;
+    }
+    return s;
+}
+int main(){
+    int arr[10]={7,9,1,2,3,4,5,6};
+    cout<<"pivot element is "<<pivot_element(arr,10);
+}
+
+//Search in Rotated Sorted Array
+#include <iostream>
+#include <vector>
+using namespace std;
+int binary_search(vector<int>&arr, int s, int e, int key) {
+    int start = s;
+    int end = e;
+    while (start <= end) {
+        int mid = start + (end - start) / 2;
+        if (arr[mid] == key) {
+            return mid;
+        }
+        if (key > arr[mid]) {
+            start = mid + 1;
+        } 
+        else {
+            end = mid - 1;
+        }
+    }
+    return -1;
+}
+int pivot_element(vector<int>&arr, int n){
+    int s = 0;
+    int e = n-1;
+    int m = s+(e-s)/2;
+    while(s<=e){
+        if(arr[m]>=0){
+            s = m+1;
+        }
+        else{
+            e=m;
+        }
+        int m = s+(e-s)/2;
+    }
+    return s;
+}
+int findPos(vector<int>&arr ,int n, int k){
+    int pivot = pivot_element(arr,10);
+    if(k >= arr[pivot] && k<=arr[n-1]){
+        return binary_search(arr,pivot,n-1,k);
+    }
+    else{
+        binary_search(arr,0,pivot-1,k);
+    }
+}
+int main(){}
