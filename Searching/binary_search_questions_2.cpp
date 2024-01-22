@@ -68,6 +68,44 @@ int partition(int arr[], int n, int k){
 
 // Aggressive Cows
 #include <iostream>
+#include <vector>
 using namespace std;
+bool isPossible(vector<int>& stalls, int k, int mid){
+    int cow = 1;
+    int position = stalls[0];
 
-int main(){}
+    for (int i = 0; i < stalls.size(); i++){
+        if(stalls[i]-position >= mid){
+            cow++;
+            if(cow==k){
+                return true;
+            }
+            position = stalls[i];
+        }
+    }
+    return false;
+}
+int Allocation(vector<int>& stalls, int k){
+    sort(stalls.begin(), stalls.end());
+    int start = 0;
+    int maxi = -1;
+
+    for (int i = 0; i < stalls.size(); i++){
+        maxi = max(maxi, stalls[i]);
+    }
+    int end = maxi;
+    int ans = -1;
+    int mid = start+(end-start)/2;
+
+    while(start<=end){
+        if(isPossible(stalls,k,mid)){
+            ans = mid;
+            start = mid+1;
+        }
+        else{
+            end = mid -1;
+        }
+        mid = start+(end-start)/2;
+    }
+    return ans;
+}
