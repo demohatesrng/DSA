@@ -1,4 +1,5 @@
 // Book Allocation Problem
+/*
 #include <iostream>
 using namespace std;
 bool isPossible(int arr[], int n , int m , int mid){
@@ -66,6 +67,7 @@ int partition(int arr[], int n, int k){
     return best;
 }
 
+
 // Aggressive Cows
 #include <iostream>
 #include <vector>
@@ -109,3 +111,4 @@ int Allocation(vector<int>& stalls, int k){
     }
     return ans;
 }
+*/

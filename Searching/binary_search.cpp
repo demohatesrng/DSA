@@ -1,4 +1,5 @@
 #include <iostream>
+/*
 using namespace std;
 int binary_search(int arr[], int size, int key) {
     int start = 0;
@@ -53,3 +54,4 @@ int main(){
         cout << "Element not found in the array." << endl;
     }
 }
+*/

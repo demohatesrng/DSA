@@ -1,4 +1,5 @@
 //First and last position in sorted array
+/*
 #include <iostream>
 using namespace std;
 int firstOcc(int arr[], int size, int key){
@@ -146,3 +147,4 @@ int findPos(vector<int>&arr ,int n, int k){
     }
 }
 int main(){}
+*/

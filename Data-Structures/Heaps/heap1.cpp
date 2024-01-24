@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 class heap {
 public:
@@ -107,4 +108,20 @@ int main() {
     cout << "Heap sort: ";
     h.heapSort();
     h.print();
+
+    cout<<"Using priotity queue here"<<endl;
+        //max heap
+        priority_queue <int> pq;
+        pq.push(4);
+        pq.push(2);
+        pq.push(5);
+        pq.push(8);
+
+        pq.top();
+        pq.pop();
+
+        pq.size();
+
+        //min heap
+        priority_queue <int, vector<int>, greater<int> > minheap;
 }
